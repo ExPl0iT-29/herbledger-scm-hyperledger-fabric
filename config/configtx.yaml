@@ -45,7 +45,7 @@ Organizations:
   - &Lab
     Name: LabMSP
     ID: LabMSP
-    MSPDir: crypto-config/peerOrganizations/lab.example.com/msp
+    MSPDir: /app/crypto-config/peerOrganizations/lab.example.com/msp
     Policies:
       Readers:
         Type: Signature
