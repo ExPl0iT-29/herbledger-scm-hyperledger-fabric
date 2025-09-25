@@ -59,7 +59,7 @@ Organizations:
   - &Manufacturer
     Name: ManufacturerMSP
     ID: ManufacturerMSP
-    MSPDir: crypto-config/peerOrganizations/manufacturer.example.com/msp
+    MSPDir: /app/crypto-config/peerOrganizations/manufacturer.example.com/msp
     Policies:
       Readers:
         Type: Signature
