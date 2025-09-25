@@ -129,8 +129,8 @@ services:
       - "13051:13051"
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - ./crypto-config/peerOrganizations/manufacturer.example.com/peers/peer0.manufacturer.example.com/msp:/var/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/manufacturer.example.com/peers/peer0.manufacturer.example.com/tls:/var/hyperledger/peer/tls
+      - ../crypto-config/peerOrganizations/manufacturer.example.com/peers/peer0.manufacturer.example.com/msp:/var/hyperledger/peer/msp
+      - ../crypto-config/peerOrganizations/manufacturer.example.com/peers/peer0.manufacturer.example.com/tls:/var/hyperledger/peer/tls
     networks:
       - herbledger
 networks:
