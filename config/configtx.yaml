@@ -3,7 +3,7 @@ Organizations:
   - &OrdererOrg
     Name: OrdererOrg
     ID: OrdererMSP
-    MSPDir: crypto-config/ordererOrganizations/example.com/msp
+    MSPDir: /app/crypto-config/ordererOrganizations/example.com/msp
     Policies:
       Readers:
         Type: Signature
