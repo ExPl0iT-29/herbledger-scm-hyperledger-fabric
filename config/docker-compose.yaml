@@ -48,8 +48,8 @@ services:
       - "7051:7051"
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - ./crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/msp:/var/hyperledger/peer/msp
-      - ./crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls:/var/hyperledger/peer/tls
+      - ../crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/msp:/var/hyperledger/peer/msp
+      - ../crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls:/var/hyperledger/peer/tls
     networks:
       - herbledger
   peer0.processor.example.com:
