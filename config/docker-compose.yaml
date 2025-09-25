@@ -20,9 +20,9 @@ services:
     ports:
       - "7050:7050"
     volumes:
-      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
-      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls:/var/hyperledger/orderer/tls
-      - ./network/genesis.block:/var/hyperledger/orderer/genesis.block
+      - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
+      - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls:/var/hyperledger/orderer/tls
+      - ../network/genesis.block:/var/hyperledger/orderer/genesis.block
     networks:
       - herbledger
   peer0.farmer.example.com:
