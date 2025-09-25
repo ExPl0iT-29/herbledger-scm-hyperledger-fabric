@@ -1,0 +1,173 @@
+---
+Organizations:
+  - &OrdererOrg
+    Name: OrdererOrg
+    ID: OrdererMSP
+    MSPDir: crypto-config/ordererOrganizations/example.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('OrdererMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('OrdererMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('OrdererMSP.admin')"
+  - &FarmerCollective
+    Name: FarmerCollectiveMSP
+    ID: FarmerCollectiveMSP
+    MSPDir: crypto-config/peerOrganizations/farmer.example.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('FarmerCollectiveMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('FarmerCollectiveMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('FarmerCollectiveMSP.admin')"
+  - &Processor
+    Name: ProcessorMSP
+    ID: ProcessorMSP
+    MSPDir: crypto-config/peerOrganizations/processor.example.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('ProcessorMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('ProcessorMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('ProcessorMSP.admin')"
+  - &Lab
+    Name: LabMSP
+    ID: LabMSP
+    MSPDir: crypto-config/peerOrganizations/lab.example.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('LabMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('LabMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('LabMSP.admin')"
+  - &Manufacturer
+    Name: ManufacturerMSP
+    ID: ManufacturerMSP
+    MSPDir: crypto-config/peerOrganizations/manufacturer.example.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('ManufacturerMSP.member')"
+      Writers:
+        Type: Signature
+        Rule: "OR('ManufacturerMSP.member')"
+      Admins:
+        Type: Signature
+        Rule: "OR('ManufacturerMSP.admin')"
+
+Capabilities:
+  Channel: &ChannelCapabilities
+    V2_5: true
+  Orderer: &OrdererCapabilities
+    V2_5: true
+  Application: &ApplicationCapabilities
+    V2_5: true
+
+Application: &Application
+  Organizations:
+    - *FarmerCollective
+    - *Processor
+    - *Lab
+    - *Manufacturer
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    LifecycleEndorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+    Endorsement:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Endorsement"
+
+Orderer: &Orderer
+  OrdererType: etcdraft
+  EtcdRaft:
+    Consenters:
+      - Host: orderer.example.com
+        Port: 7050
+        ClientTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+        ServerTLSCert: crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt
+  Addresses:
+    - orderer.example.com:7050
+  BatchTimeout: 2s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+  Organizations:
+    - *OrdererOrg
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+    BlockValidation:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+
+Channel: &Channel
+  Policies:
+    Readers:
+      Type: ImplicitMeta
+      Rule: "ANY Readers"
+    Writers:
+      Type: ImplicitMeta
+      Rule: "ANY Writers"
+    Admins:
+      Type: ImplicitMeta
+      Rule: "MAJORITY Admins"
+
+Profiles:
+  OrdererGenesis:
+    <<: *Channel
+    Capabilities:
+      <<: *ChannelCapabilities
+    Orderer:
+      <<: *Orderer
+      Capabilities:
+        <<: *OrdererCapabilities
+    Consortiums:
+      HerbLedgerConsortium:
+        Organizations:
+          - *FarmerCollective
+          - *Processor
+          - *Lab
+          - *Manufacturer
+  HerbLedgerChannel:
+    Consortium: HerbLedgerConsortium
+    <<: *Channel
+    Capabilities:
+      <<: *ChannelCapabilities
+    Application:
+      <<: *Application
+      Capabilities:
+        <<: *ApplicationCapabilities
+---
