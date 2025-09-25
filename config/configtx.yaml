@@ -17,7 +17,7 @@ Organizations:
   - &FarmerCollective
     Name: FarmerCollectiveMSP
     ID: FarmerCollectiveMSP
-    MSPDir: crypto-config/peerOrganizations/farmer.example.com/msp
+    MSPDir: /app/crypto-config/peerOrganizations/farmer.example.com/msp
     Policies:
       Readers:
         Type: Signature
