@@ -31,7 +31,7 @@ Organizations:
   - &Processor
     Name: ProcessorMSP
     ID: ProcessorMSP
-    MSPDir: crypto-config/peerOrganizations/processor.example.com/msp
+    MSPDir: /app/crypto-config/peerOrganizations/processor.example.com/msp
     Policies:
       Readers:
         Type: Signature
